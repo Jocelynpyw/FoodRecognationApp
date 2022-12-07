@@ -112,8 +112,9 @@ const App = () => {
 
   return (
     <View style={styles.container}>
+      <Image source={{uri: cameraPhoto}} style={styles.image} />
+
       <Button title="Prendre Une Photo" onPress={OpenCamera} />
-      <Image source={{uri: cameraPhoto}} />
       <Text>.</Text>
       <Button title="Aller a la Gallery" onPress={Opengallery} />
       {/* <Text>Je suis jocelyn pyw</Text> */}
@@ -127,6 +128,11 @@ const styles = StyleSheet.create({
     // backgroundColor: 'lime',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  image: {
+    marginBottom: 20,
+    width: 180,
+    height: 180,
   },
 });
 
