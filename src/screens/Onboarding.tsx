@@ -1,75 +1,58 @@
 import React, {useState} from 'react';
 import {
-  Button,
   Image,
   StyleSheet,
   Text,
   View,
   PermissionsAndroid,
+  Dimensions,
+  Pressable,
+  ImageBackground,
 } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import Home from './Home';
+import {colors} from '../constants/colors';
+import images from '../constants/images';
 
 const slides = [
   {
     id: 1,
     title: 'Je suis le numero 1',
     description: 'lorem ipsum sit dolor set amet adipiscing elit , sed do',
-    image: require('../assets/image1.png'),
+    image: require('../assets/image11.png'),
   },
   {
     id: 2,
     title: 'Je suis le numero 2',
     description: 'lorem ipsum sit dolor set amet adipiscing elit , sed do',
-    image: require('../assets/image2.png'),
+    image: require('../assets/image12.png'),
   },
   {
     id: 3,
     title: 'Je suis le numero 3',
     description: 'lorem ipsum sit dolor set amet adipiscing elit , sed do',
-    image: require('../assets/image3.png'),
+    image: require('../assets/image13.png'),
   },
 ];
 
 const Onboarding = () => {
-  const [cameraPhoto, setCameraPhoto] = useState<any>();
-  //Image picker launcheCamera Option
-  let options = {
-    mediaType: 'photo',
-    cameraType: 'back',
-    // saveToPhotos: true,
-  };
   const [showHomePage, setShowHomePage] = useState(false);
-  const OpenCamera = async () => {
-    const granted = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.CAMERA,
-    );
-    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      // console.log("Je suis beau comme je l'entend");
-
-      const result = await launchCamera(options);
-      setCameraPhoto(result.assets[0].uri);
-      console.log('Le set camera contient : ', result.assets[0].uri);
-    }
-  };
-
-  const Opengallery = async () => {
-    const granted = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.CAMERA,
-    );
-    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      // console.log("Je suis beau comme je l'entend");
-
-      const result = await launchImageLibrary(options);
-      setCameraPhoto(result.assets[0].uri);
-      console.log('Le set camera contient : ', result.assets[0].uri);
-    }
-  };
 
   const buttonLabel = (label: String) => {
     return (
-      <View style={{padding: 12}}>
-        <Text style={{color: 'black', fontWeight: '600'}}>{label}</Text>
+      <View
+        style={{
+          padding: 12,
+          backgroundColor: colors.primary,
+          borderRadius: 20,
+          minWidth: 90,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Text style={{color: colors.secondary, fontWeight: '600'}}>
+          {label}
+        </Text>
       </View>
     );
   };
@@ -80,29 +63,29 @@ const Onboarding = () => {
         data={slides}
         renderItem={({item}) => {
           return (
-            <View
-              style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-                padding: 15,
-                paddingTop: -100,
-              }}>
-              <Image
-                source={item.image}
-                resizeMode="contain"
-                style={{height: 300, width: 300}}
+            <View style={styles.container}>
+              <ImageBackground
+                style={styles.imagebackground}
+                source={images.vegitable}
               />
-              <Text>{item.title}</Text>
-              <Text>{item.description}</Text>
+
+              <View style={styles.TopContainer}>
+                <Image source={item.image} style={styles.image} />
+                <Text style={styles.title}>{item.title}</Text>
+                <Text style={styles.description}>{item.description}</Text>
+              </View>
+              <View style={styles.bottomContainer} />
+
+              {/* <Text>I am WelcomePage</Text> */}
             </View>
           );
         }}
-        activeDotStyle={{backgroundColor: 'black'}}
+        activeDotStyle={{backgroundColor: colors.primary}}
+        dotStyle={{backgroundColor: '#dcdbdb80'}}
         showSkipButton
-        renderNextButton={() => buttonLabel('Suivant')}
-        renderSkipButton={() => buttonLabel('Passer')}
-        renderDoneButton={() => buttonLabel('Terminer')}
+        renderNextButton={() => buttonLabel('Next')}
+        renderSkipButton={() => buttonLabel('Skip')}
+        renderDoneButton={() => buttonLabel('Finish')}
         onDone={() => {
           setShowHomePage(true);
         }}
@@ -110,29 +93,79 @@ const Onboarding = () => {
     );
   }
 
-  return (
-    <View style={styles.container}>
-      <Image source={{uri: cameraPhoto}} style={styles.image} />
-
-      <Button title="Prendre Une Photo" onPress={OpenCamera} />
-      <Text>.</Text>
-      <Button title="Aller a la Gallery" onPress={Opengallery} />
-      {/* <Text>Je suis jocelyn pyw</Text> */}
-    </View>
-  );
+  return <Home />;
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: 'lime',
+    flexDirection: 'column',
+    backgroundColor: colors.secondary,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // zIndex: 200,
+  },
+  TopContainer: {
+    backgroundColor: colors.primary,
+    top: 0,
+    height: '70%',
+    width: '100%',
+    borderBottomRightRadius: 40,
+    borderBottomLeftRadius: 40,
     justifyContent: 'center',
     alignItems: 'center',
   },
+  bottomContainer: {
+    height: '30%',
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    zIndex: 200,
+  },
   image: {
-    marginBottom: 20,
-    width: 180,
-    height: 180,
+    width: 300,
+    height: 200,
+  },
+  title: {
+    color: colors.secondary,
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginVertical: 20,
+  },
+  description: {
+    color: colors.secondary,
+    fontSize: 15,
+    textAlign: 'center',
+    marginVertical: 10,
+  },
+  twotexts: {
+    marginTop: -10,
+  },
+  button: {
+    padding: 20,
+    backgroundColor: colors.primary,
+    width: Dimensions.get('screen').width / 1.5,
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    minHeight: 70,
+    borderRadius: 20,
+  },
+  label: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: colors.secondary,
+  },
+  imagebackground: {
+    height: 200,
+    width: 300,
+    position: 'absolute',
+    bottom: -40,
+    right: -60,
+    zIndex: -40,
+    opacity: 0.4,
   },
 });
 

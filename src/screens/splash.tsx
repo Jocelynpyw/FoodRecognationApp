@@ -1,12 +1,16 @@
 import {StyleSheet, View, Image, Dimensions} from 'react-native';
 import React from 'react';
 import {colors} from '../constants/colors';
+import images from '../constants/images';
 
-const Splash = () => {
+const Splash = (props: any) => {
+  setTimeout(() => {
+    props.navigation.navigate('WelcomePage');
+  }, 2000);
   return (
     <View style={styles.container}>
       <View style={styles.topcontainer} />
-      <Image source={require('../assets/Logo.png')} style={styles.image} />
+      <Image source={images.logo} style={styles.image} />
     </View>
   );
 };
