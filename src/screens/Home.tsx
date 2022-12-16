@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {
   ImageBackground,
-  Pressable,
+  TouchableOpacity,
   Image,
   StyleSheet,
   Text,
@@ -13,6 +13,7 @@ import AppIntroSlider from 'react-native-app-intro-slider';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {colors} from '../constants/colors';
 import images from '../constants/images';
+// import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 const Home = () => {
@@ -29,8 +30,6 @@ const Home = () => {
       PermissionsAndroid.PERMISSIONS.CAMERA,
     );
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      // console.log("Je suis beau comme je l'entend");
-
       const result = await launchCamera(options);
       setCameraPhoto(result.assets[0].uri);
       console.log('Le set camera contient : ', result.assets[0].uri);
@@ -62,68 +61,55 @@ const Home = () => {
       </View>
       <View style={styles.bottomContainer}>
         <View style={styles.iconContainer}>
-          <FontAwesome5
-            name="wifi"
+          {/* <Image source={{uri: cameraPhoto}} style={styles.image} /> */}
+          {/* <FontAwesome5
+            name="back"
             key={123}
-            size={20}
+            size={40}
             color={colors.secondary}
-          />
+          /> */}
+          {/* <Icon name="close" size={60} color={'lime'} /> */}
         </View>
         <View style={styles.buttonContainer}>
-          <Pressable style={styles.button}>
-            <Text style={styles.label}>Get Started</Text>
-          </Pressable>
-          <Pressable style={styles.button}>
-            <Text style={styles.label}>Get Started</Text>
-          </Pressable>
+          <View style={{marginBottom: 60}}>
+            <TouchableOpacity onPress={OpenCamera}>
+              <View style={styles.button}>
+                <Image source={images.camera} />
+                <Text style={styles.label}>Take a pictute</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={Opengallery}>
+              <View style={styles.button}>
+                <Image source={images.plus} />
+                <Text style={styles.label}>Import a picture</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-      {/* <Text>I am WelcomePage</Text> */}
-    </View>
-    // <View style={styles.container}>
-    //   <Image source={{uri: cameraPhoto}} style={styles.image} />
 
-    //   <Button title="Prendre Une Photo" onPress={OpenCamera} />
-    //   <Text>.</Text>
-    //   <Button title="Aller a la Gallery" onPress={Opengallery} />
-    //   <Text>Je suis jocelyn pyw</Text>
-    // </View>
+        <View style={styles.bottomCover} />
+      </View>
+    </View>
   );
 };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//   },
-//   image: {
-//     marginBottom: 20,
-//     width: 180,
-//     height: 180,
-//   },
-// });
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
     backgroundColor: colors.secondary,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
   TopContainer: {
-    backgroundColor: colors.secondary,
     top: 0,
-    height: '30%',
+    height: '25%',
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },
   bottomContainer: {
     backgroundColor: colors.primary,
-    // backgroundColor: 'lime',
     height: '70%',
     width: '100%',
     display: 'flex',
@@ -133,6 +119,8 @@ const styles = StyleSheet.create({
     zIndex: -200,
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
+    borderBottomRightRadius: 200,
+    borderBottomLeftRadius: 20,
   },
   image: {
     width: 350,
@@ -153,27 +141,36 @@ const styles = StyleSheet.create({
   },
   button: {
     padding: 20,
-    backgroundColor: 'lime',
+    backgroundColor: colors.secondary,
     width: Dimensions.get('screen').width / 1.3,
-    justifyContent: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
     alignContent: 'center',
     alignItems: 'center',
-    minHeight: 70,
+    height: 80,
     borderRadius: 20,
+    marginVertical: 10,
   },
   label: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: colors.secondary,
+    color: colors.primary,
   },
   imagebackground: {
-    height: 200,
-    width: 300,
+    height: 150,
+    width: 250,
     position: 'absolute',
-    bottom: -40,
-    right: -60,
-    // zIndex: -40,
-    // opacity: 0.4,
+    bottom: -30,
+    right: -40,
+  },
+  bottomCover: {
+    width: '100%',
+    backgroundColor: 'lime',
+    position: 'absolute',
+    marginTop: 200,
+    bottom: 0,
+    borderTopLeftRadius: 400,
   },
 });
 
