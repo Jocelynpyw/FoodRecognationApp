@@ -6,7 +6,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Splash from './src/screens/splash';
 import WelcomePage from './src/screens/welcomePage';
-import AnnotationFoods from './src/screens/AnnotationFoods';
+// import AnnotationFoods from './src/screens/AnnotationFoods';
 
 const Stack = createNativeStackNavigator();
 // const Drawer = createDrawerNavigator();
