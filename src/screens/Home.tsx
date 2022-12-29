@@ -103,14 +103,14 @@ const styles = StyleSheet.create({
   },
   TopContainer: {
     top: 0,
-    height: '25%',
+    height: '20%',
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },
   bottomContainer: {
     backgroundColor: colors.primary,
-    height: '70%',
+    height: '75%',
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
@@ -123,8 +123,8 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 20,
   },
   image: {
-    width: 350,
-    height: 150,
+    width: 300,
+    height: 125,
   },
   textOne: {
     color: colors.primary,
