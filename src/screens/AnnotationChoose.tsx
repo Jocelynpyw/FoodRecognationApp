@@ -12,17 +12,13 @@ import {
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
-  runOnJS,
 } from 'react-native-reanimated';
 import {
-  GestureEvent,
   GestureDetector,
   Gesture,
-  PanGestureHandler,
-  PanGestureHandlerEventPayload,
   GestureHandlerRootView,
 } from 'react-native-gesture-handler';
-import {launchCamera} from 'react-native-image-picker';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import images from '../constants/images';
 import {colors} from '../constants/colors';
 
@@ -67,7 +63,7 @@ export interface IimageAnnotation {
   height: Number;
 }
 
-export default function AnnotationFoods() {
+export default function AnnotationChoose() {
   const start = useSharedValue({x: null, y: null});
   const end = useSharedValue({x: 0, y: 0});
   const dimensions = useSharedValue({w: 0, h: 0});
@@ -99,19 +95,22 @@ export default function AnnotationFoods() {
   const [showHomePage, setShowHomePage] = useState(false);
   const [save, setSave] = useState(false);
   const [share, setShare] = useState(false);
-  const OpenCamera = async () => {
+  const Opengallery = async () => {
     const granted = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.CAMERA,
     );
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      const result = await launchCamera(options);
+      // console.log("Je suis beau comme je l'entend");
+
+      const result = await launchImageLibrary(options);
       setCameraPhoto(result.assets[0].uri);
       setModalVisible(true);
       setAnnotation({photo: result.assets[0].uri});
       setSave(true);
-      // console.log('Le set camera contient : ', result.assets[0].uri);
+      console.log('Le set camera contient : ', result.assets[0].uri);
     }
   };
+
   const OnSavePhoto = () => {
     setAnnotation({
       height: rectangleInfo.value.height,
@@ -266,8 +265,8 @@ export default function AnnotationFoods() {
           {save === false ? (
             <TouchableOpacity
               style={styles.pressableContaint}
-              onPress={OpenCamera}>
-              <Image source={images.camera} />
+              onPress={Opengallery}>
+              <Image source={images.plus} />
             </TouchableOpacity>
           ) : (
             <TouchableOpacity

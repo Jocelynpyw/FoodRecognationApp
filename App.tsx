@@ -2,10 +2,12 @@ import React from 'react';
 import Onboarding from './src/screens/Onboarding';
 import {NavigationContainer} from '@react-navigation/native';
 // import {createDrawerNavigator} from '@react-navigation/drawer';
-
+import 'react-native-gesture-handler';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Splash from './src/screens/splash';
 import WelcomePage from './src/screens/welcomePage';
+import AnnotationFoods from './src/screens/AnnotationFoods';
+import AnnotationChoose from './src/screens/AnnotationChoose';
 // import AnnotationFoods from './src/screens/AnnotationFoods';
 
 const Stack = createNativeStackNavigator();
@@ -21,6 +23,8 @@ const App = () => {
         <Stack.Screen name="Home" component={Splash} />
         <Stack.Screen name="Onboarding" component={Onboarding} />
         <Stack.Screen name="WelcomePage" component={WelcomePage} />
+        <Stack.Screen name="Annotation" component={AnnotationFoods} />
+        <Stack.Screen name="AnnotationChoose" component={AnnotationChoose} />
       </Stack.Navigator>
 
       {/* Drawer */}
