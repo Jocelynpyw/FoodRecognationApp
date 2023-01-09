@@ -185,6 +185,7 @@ export default function AnnotationFoods() {
         width: dimensions.value.w,
         height: dimensions.value.h,
       };
+      // runOnJS(() => {});
     });
 
   const rStyle = useAnimatedStyle(() => {

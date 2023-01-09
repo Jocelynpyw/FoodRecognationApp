@@ -1,4 +1,9 @@
-Ici je mets certaines informations qui vont m'accompagner pour le dev
+#Pour lancer l'application
 
-les codes de mes couleurs les voici que je m'en vais mettre
-Rouge : #E6213E
+1-avoir l'environnment de developpement react Natif CLI a consulter https://reactnative.dev/docs/environment-setup
+
+2-ouvrir le projet dans un etideur de code et ourir un terminal a la racine
+
+3-faire un yarn install ou un npm install
+
+4-pour lancer l'application faites un yarn android ou un npx react-native start
