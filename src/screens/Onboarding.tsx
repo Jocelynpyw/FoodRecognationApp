@@ -18,20 +18,20 @@ import images from '../constants/images';
 const slides = [
   {
     id: 1,
-    title: 'Je suis le numero 1',
-    description: 'lorem ipsum sit dolor set amet adipiscing elit , sed do',
+    title: 'Food recognition',
+    description: 'from the images recognize the nutrients that compose them',
     image: require('../assets/image11.png'),
   },
   {
     id: 2,
-    title: 'Je suis le numero 2',
-    description: 'lorem ipsum sit dolor set amet adipiscing elit , sed do',
+    title: 'Know how to feed',
+    description: 'Knowing how to eat is important if we want to have good health',
     image: require('../assets/image12.png'),
   },
   {
     id: 3,
-    title: 'Je suis le numero 3',
-    description: 'lorem ipsum sit dolor set amet adipiscing elit , sed do',
+    title: 'Food Annotation',
+    description: 'Annotate images containing your favorite foods',
     image: require('../assets/image13.png'),
   },
 ];

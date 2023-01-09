@@ -8,15 +8,18 @@ import {
   View,
   Dimensions,
   PermissionsAndroid,
+  Button,
 } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {colors} from '../constants/colors';
 import images from '../constants/images';
+import {useNavigation} from '@react-navigation/native';
 // import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 const Home = () => {
+  const navigation = useNavigation();
   const [cameraPhoto, setCameraPhoto] = useState<any>();
   //Image picker launcheCamera Option
   let options = {
@@ -25,6 +28,7 @@ const Home = () => {
     // saveToPhotos: true,
   };
   const [showHomePage, setShowHomePage] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const OpenCamera = async () => {
     const granted = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.CAMERA,
@@ -84,7 +88,37 @@ const Home = () => {
                 <Text style={styles.label}>Import a picture</Text>
               </View>
             </TouchableOpacity>
+            <TouchableOpacity onPress={() => setShowModal(true)}>
+              <View style={styles.button}>
+                <Image source={images.plus} />
+                <Text style={styles.label}>Annotate image</Text>
+              </View>
+            </TouchableOpacity>
           </View>
+
+          {showModal === true && (
+            <View style={styles.containerBox}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('Annotation')}>
+                <View style={styles.buttono}>
+                  <Image source={images.camera} />
+                  <Text style={styles.label}>Take a pictute</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('AnnotationChoose')}>
+                <View style={styles.buttono}>
+                  <Image source={images.plus} />
+                  <Text style={styles.label}>Import a picture</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => setShowModal(false)}
+                style={styles.closeBtn}>
+                <Text style={styles.closetext}>Close</Text>
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
 
         <View style={styles.bottomCover} />
@@ -152,6 +186,19 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginVertical: 10,
   },
+  buttono: {
+    padding: 20,
+    backgroundColor: colors.secondary,
+    width: Dimensions.get('screen').width / 1.3,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignContent: 'center',
+    alignItems: 'center',
+    height: 70,
+    borderRadius: 20,
+    marginVertical: 10,
+  },
   label: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -171,6 +218,40 @@ const styles = StyleSheet.create({
     marginTop: 200,
     bottom: 0,
     borderTopLeftRadius: 400,
+  },
+  containerBox: {
+    width: '80%',
+    height: 300,
+    padding: 30,
+    position: 'absolute',
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
+  },
+  closeBtn: {
+    padding: 10,
+    backgroundColor: colors.secondary,
+    width: 200,
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    display: 'flex',
+    borderRadius: 20,
+  },
+  closetext: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 18,
   },
 });
 
